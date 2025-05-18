@@ -1,5 +1,5 @@
 import React from 'react';
-import { GithubIcon, TwitterIcon, HeartIcon } from 'lucide-react';
+import { Github, HeartIcon } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -13,23 +13,18 @@ const Footer: React.FC = () => {
           </div>
           <div className="flex items-center space-x-4">
             <a
-              href="#"
+              href="https://github.com/alvianzf/jsonify"
               className="text-gray-500 hover:text-gray-700 transition-colors duration-200"
               aria-label="GitHub"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <GithubIcon size={20} />
-            </a>
-            <a
-              href="#"
-              className="text-gray-500 hover:text-gray-700 transition-colors duration-200"
-              aria-label="Twitter"
-            >
-              <TwitterIcon size={20} />
+              <Github size={20} />
             </a>
             <div className="flex items-center text-gray-600 text-sm">
               <span>Made with</span>
               <HeartIcon className="h-4 w-4 text-red-500 mx-1" />
-              <span>by JSONify Team</span>
+              <span>by Alvian Zachry Faturrahman</span>
             </div>
           </div>
         </div>
