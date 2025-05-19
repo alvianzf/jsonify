@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { CopyIcon, TableIcon, CodeIcon, CheckIcon } from 'lucide-react';
+import { CopyIcon, TableIcon, CodeIcon, CheckIcon, TreesIcon as TreeIcon } from 'lucide-react';
 import { ProcessedData } from '../types';
 import DataTable from './DataTable';
+import JsonStructure from './JsonStructure';
 
 interface OutputViewerProps {
   data: ProcessedData;
 }
 
 const OutputViewer: React.FC<OutputViewerProps> = ({ data }) => {
-  const [viewMode, setViewMode] = useState<'json' | 'table'>('json');
+  const [viewMode, setViewMode] = useState<'json' | 'table' | 'structure'>('json');
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = async () => {
@@ -50,6 +51,17 @@ const OutputViewer: React.FC<OutputViewerProps> = ({ data }) => {
               <TableIcon size={16} className="mr-1" />
               Table
             </button>
+            <button
+              className={`flex items-center px-3 py-1.5 text-sm rounded-md transition-colors duration-200 ${
+                viewMode === 'structure'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+              onClick={() => setViewMode('structure')}
+            >
+              <TreeIcon size={16} className="mr-1" />
+              Structure
+            </button>
             
             <button
               className="flex items-center px-3 py-1.5 text-sm bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors duration-200"
@@ -72,12 +84,18 @@ const OutputViewer: React.FC<OutputViewerProps> = ({ data }) => {
       </div>
       
       <div className="p-6">
-        {viewMode === 'json' ? (
+        {viewMode === 'json' && (
           <pre className="font-mono text-sm bg-gray-50 p-4 rounded-md overflow-auto max-h-96 border border-gray-200">
             {data.json}
           </pre>
-        ) : (
+        )}
+        
+        {viewMode === 'table' && (
           <DataTable data={data.data} />
+        )}
+
+        {viewMode === 'structure' && (
+          <JsonStructure data={data.data} />
         )}
         
         <div className="mt-4 flex items-center text-sm text-gray-500">
