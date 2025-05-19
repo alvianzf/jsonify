@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import FileUploader from './FileUploader';
 import TextEditor from './TextEditor';
 import OutputViewer from './OutputViewer';
+import UrlInput from './UrlInput';
 import { DataFormat, ProcessedData } from '../types';
 import { processData } from '../utils/dataProcessing';
 
@@ -37,6 +38,11 @@ const DataProcessor: React.FC = () => {
     setInputFormat(format);
   };
 
+  const handleUrlData = (data: string) => {
+    setInput(data);
+    setInputFormat('json');
+  };
+
   const handleFormatChange = (format: DataFormat) => {
     setInputFormat(format);
   };
@@ -47,9 +53,20 @@ const DataProcessor: React.FC = () => {
         <div className="p-6">
           <h2 className="text-xl font-medium text-gray-900 mb-4">Input Data</h2>
           
-          <FileUploader onFileData={handleFileData} />
+          <div className="space-y-6">
+            <UrlInput onUrlData={handleUrlData} />
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">or</span>
+              </div>
+            </div>
+            <FileUploader onFileData={handleFileData} />
+          </div>
           
-          <div className="mt-4">
+          <div className="mt-6">
             <div className="flex items-center mb-4">
               <span className="text-sm font-medium text-gray-700 mr-3">Format:</span>
               <div className="flex space-x-2">
